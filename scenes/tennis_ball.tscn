@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://eqkes2x4r2q7"]
+
+[ext_resource type="Texture2D" uid="uid://fihinfgt1hj4" path="res://assets/sprites/ball.png" id="1_161k7"]
+[ext_resource type="Script" path="res://scenes/ball.gd" id="1_bp0xi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lpajo"]
+radius = 3.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_762sy"]
+atlas = ExtResource("1_161k7")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c6fga"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_762sy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="TennisBall" type="Node2D"]
+
+[node name="RigidBody2D" type="Area2D" parent="."]
+script = ExtResource("1_bp0xi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CircleShape2D_lpajo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="RigidBody2D"]
+sprite_frames = SubResource("SpriteFrames_c6fga")
