@@ -150,7 +150,7 @@ shape = SubResource("CircleShape2D_lpajo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="RigidBody2D"]
 sprite_frames = SubResource("SpriteFrames_c6fga")
-frame_progress = 0.676198
+frame_progress = 0.320598
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="RigidBody2D"]
 libraries = {
