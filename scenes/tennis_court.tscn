@@ -287,8 +287,10 @@ script = ExtResource("1_wsuso")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 sprite_frames = SubResource("SpriteFrames_k0iqw")
-animation = &"swingleft"
+animation = &"swingright"
 autoplay = "idleleft"
+frame = 5
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("RectangleShape2D_ydkl1")

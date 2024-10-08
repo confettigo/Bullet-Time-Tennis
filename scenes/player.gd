@@ -48,6 +48,8 @@ func _input(event):
 		else:
 			print("swing right")
 			sprite.play("swingright")
+			instance.position.x = 12
+			instance.position.y = -6
 		print(instance.position)
 
 
