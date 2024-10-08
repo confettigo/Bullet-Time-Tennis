@@ -1,11 +1,13 @@
-[gd_scene load_steps=38 format=3 uid="uid://ch6aow6ds2p7u"]
+[gd_scene load_steps=44 format=3 uid="uid://ch6aow6ds2p7u"]
 
 [ext_resource type="Texture2D" uid="uid://cbxgkddvnfx2g" path="res://assets/sprites/leftwalk.png" id="1_sgen6"]
 [ext_resource type="Texture2D" uid="uid://hagvao4vltdw" path="res://assets/sprites/recourt.png" id="1_vuvfe"]
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_wsuso"]
+[ext_resource type="Texture2D" uid="uid://bnpvhr6jtaiwr" path="res://assets/sprites/aiwalksleft.png" id="3_3lrsl"]
 [ext_resource type="Texture2D" uid="uid://cqx3p53gwe0vi" path="res://assets/sprites/rightwalk.png" id="3_hfg33"]
 [ext_resource type="Texture2D" uid="uid://c6bvg4vgvdsd0" path="res://assets/sprites/hitleft.png" id="3_n5vcm"]
 [ext_resource type="Texture2D" uid="uid://bdmujcr6pwsco" path="res://assets/sprites/afterhit.png" id="3_neq8m"]
+[ext_resource type="Script" path="res://scenes/enemy.gd" id="3_r17qu"]
 [ext_resource type="Texture2D" uid="uid://e0sa4vu442ku" path="res://assets/sprites/hitright.png" id="4_ycqqd"]
 [ext_resource type="Texture2D" uid="uid://cloa3lw7ph1lm" path="res://assets/sprites/ref.png" id="5_yyhxy"]
 [ext_resource type="Script" path="res://scenes/ref.gd" id="6_d1e7i"]
@@ -16,6 +18,31 @@ size = Vector2(18.5, 96)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_be4wx"]
 size = Vector2(268, 20.5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lhkl6"]
+atlas = ExtResource("3_3lrsl")
+region = Rect2(0, 0, 12, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k2liq"]
+atlas = ExtResource("3_3lrsl")
+region = Rect2(12, 0, 12, 29)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ydvag"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lhkl6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k2liq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4sr7s"]
+size = Vector2(20, 10)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cvpok"]
 atlas = ExtResource("3_neq8m")
@@ -276,9 +303,25 @@ shape = SubResource("RectangleShape2D_be4wx")
 position = Vector2(0, -23)
 shape = SubResource("RectangleShape2D_be4wx")
 
+[node name="TennisBall" parent="." instance=ExtResource("8_4sn7c")]
+position = Vector2(-62, 49)
+
 [node name="Court" type="Sprite2D" parent="."]
 z_index = -1
 texture = ExtResource("1_vuvfe")
+
+[node name="Enemy" type="Node2D" parent="."]
+position = Vector2(0, -50)
+script = ExtResource("3_r17qu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemy"]
+sprite_frames = SubResource("SpriteFrames_ydvag")
+autoplay = "default"
+
+[node name="Area2D" type="Area2D" parent="Enemy"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Area2D"]
+shape = SubResource("RectangleShape2D_4sr7s")
 
 [node name="Player" type="CharacterBody2D" parent="."]
 z_index = 1
@@ -294,8 +337,6 @@ frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("RectangleShape2D_ydkl1")
-
-[node name="TennisBall" parent="." instance=ExtResource("8_4sn7c")]
 
 [node name="Ref" type="AnimatedSprite2D" parent="."]
 position = Vector2(-92, -28)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://eqkes2x4r2q7"]
+[gd_scene load_steps=8 format=3 uid="uid://eqkes2x4r2q7"]
 
 [ext_resource type="Texture2D" uid="uid://fihinfgt1hj4" path="res://assets/sprites/ball.png" id="1_161k7"]
 [ext_resource type="Script" path="res://scenes/ball.gd" id="1_bp0xi"]
@@ -45,101 +45,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Animation" id="Animation_0dufm"]
-resource_name = "centershot"
-length = 0.75
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("..:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.266667, 0.5, 0.733333),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(-7, -18), Vector2(-8, -26), Vector2(0, -45)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:animation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.266667, 0.5, 0.733333),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [&"default", &"high", &"default", &"low"]
-}
-
-[sub_resource type="Animation" id="Animation_qf32t"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("..:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:animation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"default"]
-}
-
-[sub_resource type="Animation" id="Animation_kcveg"]
-resource_name = "rightshot"
-length = 0.75
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("..:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.233333, 0.733333),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(13, -30), Vector2(20, -40)]
-}
-
-[sub_resource type="Animation" id="Animation_lxwod"]
-resource_name = "leftshot"
-length = 0.75
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("..:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.366667, 0.733333),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(-23, -25), Vector2(-20, -40)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_t16jm"]
-_data = {
-"RESET": SubResource("Animation_qf32t"),
-"centershot": SubResource("Animation_0dufm"),
-"leftshot": SubResource("Animation_lxwod"),
-"rightshot": SubResource("Animation_kcveg")
-}
-
 [node name="TennisBall" type="Node2D"]
 
 [node name="RigidBody2D" type="Area2D" parent="."]
@@ -150,11 +55,10 @@ shape = SubResource("CircleShape2D_lpajo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="RigidBody2D"]
 sprite_frames = SubResource("SpriteFrames_c6fga")
-frame_progress = 0.320598
+frame_progress = 0.634343
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="RigidBody2D"]
-libraries = {
-"": SubResource("AnimationLibrary_t16jm")
-}
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25
 
 [connection signal="area_entered" from="RigidBody2D" to="RigidBody2D" method="_on_area_entered"]
+[connection signal="timeout" from="Timer" to="RigidBody2D" method="_on_timer_timeout"]
