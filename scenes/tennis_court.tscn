@@ -250,6 +250,15 @@ theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
 text = "15 - 40"
 
+[node name="Label2" type="Label" parent="CanvasLayer"]
+offset_left = 10.0
+offset_top = 615.0
+offset_right = 1146.0
+offset_bottom = 638.0
+theme_override_fonts/font = ExtResource("13_it78a")
+theme_override_font_sizes/font_size = 20
+text = "PRESS N FOR EASY AI, M FOR HARD"
+
 [node name="Clamps" type="Node2D" parent="."]
 position = Vector2(0, -32)
 

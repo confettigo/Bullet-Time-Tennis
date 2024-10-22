@@ -24,13 +24,11 @@ func scoreupdater():
 	#scoretext.text = str(scoretable[playerscore]) + " - " + str(scoretable[enemyscore])
 
 func _on_enemy_area_area_entered(area: Area2D) -> void:
-	print("player scored!")
 	playerscore += 1
 	scoreupdater()
 
 
 
 func _on_player_area_area_entered(area: Area2D) -> void:
-	print("enemy scored!")
 	enemyscore +=1
 	scoreupdater()
