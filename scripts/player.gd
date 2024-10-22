@@ -23,18 +23,18 @@ func _physics_process(delta: float) -> void:
 	var vdirection := Input.get_axis("movedown","moveup")
 	velocity.x = hdirection * SPEED
 	velocity.y = -vdirection * SPEED
+	
 	if(isSwinging):
 		pass
-	else:
+	elif(hdirection != 0 || vdirection != 0):
 		sprite.play("walkingleft")
-	#else:
-		#sprite.play("idleleft")
-	#animations
+	else:
+		sprite.play("idleleft")
 	
-	if(tennis_ball.position.x > position.x && lastdirection > 0 || sprite.animation == "idleright"):
+	if(tennis_ball.position.x > position.x && lastdirection > 0):
 		sprite.flip_h = 1
 		lastdirection = -1
-	elif(tennis_ball.position.x < position.x && lastdirection < 0 || sprite.animation == "idleleft"):
+	elif(tennis_ball.position.x < position.x && lastdirection < 0):
 		sprite.flip_h = 0
 		lastdirection = 1
 	
@@ -43,10 +43,10 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
+	tennis_ball.serving = false
 	isSwinging = true
 	sprite.play("swingleft")
 	var balldirection = -Vector2(tennis_ball.position - position)
-	print(balldirection)
 	var player_a = -Vector2(a.global_position - position)
 	var player_b = -Vector2(b.global_position - position)
 	
@@ -57,7 +57,6 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		balldirection = player_b
 	elif(angle_ball > -PI/2 && angle_ball < angle_a):
 		balldirection = player_a
-	print(str(angle_a) + " " + str(angle_b) + " " + str(angle_ball))
 	balldirection = balldirection.normalized()
 	queue_redraw()
 	tennis_ball.hdirection = -balldirection.x

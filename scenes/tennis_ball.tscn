@@ -50,8 +50,7 @@ script = ExtResource("1_bp0xi")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_c6fga")
-animation = &"low"
-autoplay = "low"
+autoplay = "default"
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.25
