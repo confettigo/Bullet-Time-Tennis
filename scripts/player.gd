@@ -6,7 +6,7 @@ var hitbox = load("res://scenes/racket_box.tscn")
 @onready var b: Node2D = $"../Clamps/B"
 
 
-const SPEED = 60.0
+const SPEED = 80.0
 var lastdirection = -1
 var isIdle = false
 var isSwinging = false
@@ -24,19 +24,27 @@ func _physics_process(delta: float) -> void:
 	velocity.x = hdirection * SPEED
 	velocity.y = -vdirection * SPEED
 	if(isSwinging):
-		return
+		pass
+	else:
+		sprite.play("walkingleft")
+	#else:
+		#sprite.play("idleleft")
 	#animations
 	
-	if(tennis_ball.position.x > position.x && lastdirection > 0):
-		sprite.play("walkingright")
+	if(tennis_ball.position.x > position.x && lastdirection > 0 || sprite.animation == "idleright"):
+		sprite.flip_h = 1
 		lastdirection = -1
-	elif(tennis_ball.position.x < position.x && lastdirection < 0):
-		sprite.play("walkingleft")
+	elif(tennis_ball.position.x < position.x && lastdirection < 0 || sprite.animation == "idleleft"):
+		sprite.flip_h = 0
 		lastdirection = 1
 	
 	move_and_slide()
 
+
+
 func _on_area_2d_area_entered(area: Area2D) -> void:
+	isSwinging = true
+	sprite.play("swingleft")
 	var balldirection = -Vector2(tennis_ball.position - position)
 	print(balldirection)
 	var player_a = -Vector2(a.global_position - position)
@@ -45,7 +53,7 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	var angle_a = player_a.angle()
 	var angle_b = player_b.angle()
 	var angle_ball = balldirection.angle()
-	if(angle_ball < -PI/2):
+	if(angle_ball < -PI/2 || angle_ball > angle_b):
 		balldirection = player_b
 	elif(angle_ball > -PI/2 && angle_ball < angle_a):
 		balldirection = player_a
@@ -54,3 +62,8 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	queue_redraw()
 	tennis_ball.hdirection = -balldirection.x
 	tennis_ball.vdirection = balldirection.y
+
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	sprite.play("idleleft")
+	isSwinging = false
