@@ -17,3 +17,11 @@ func _process(delta: float) -> void:
 	if(position.x != tennis_ball.position.x):
 		position.x -= 1 * direction;
 	pass
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	tennis_ball.vdirection = -1
+	tennis_ball.hdirection = 0
+	hit()
+
+func hit():
+	pass

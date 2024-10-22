@@ -1,17 +1,19 @@
-[gd_scene load_steps=44 format=3 uid="uid://ch6aow6ds2p7u"]
+[gd_scene load_steps=49 format=3 uid="uid://ch6aow6ds2p7u"]
 
+[ext_resource type="Script" path="res://scenes/debug.gd" id="1_ap15m"]
 [ext_resource type="Texture2D" uid="uid://cbxgkddvnfx2g" path="res://assets/sprites/leftwalk.png" id="1_sgen6"]
 [ext_resource type="Texture2D" uid="uid://hagvao4vltdw" path="res://assets/sprites/recourt.png" id="1_vuvfe"]
-[ext_resource type="Script" path="res://scenes/player.gd" id="1_wsuso"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_wsuso"]
 [ext_resource type="Texture2D" uid="uid://bnpvhr6jtaiwr" path="res://assets/sprites/aiwalksleft.png" id="3_3lrsl"]
 [ext_resource type="Texture2D" uid="uid://cqx3p53gwe0vi" path="res://assets/sprites/rightwalk.png" id="3_hfg33"]
 [ext_resource type="Texture2D" uid="uid://c6bvg4vgvdsd0" path="res://assets/sprites/hitleft.png" id="3_n5vcm"]
 [ext_resource type="Texture2D" uid="uid://bdmujcr6pwsco" path="res://assets/sprites/afterhit.png" id="3_neq8m"]
-[ext_resource type="Script" path="res://scenes/enemy.gd" id="3_r17qu"]
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="3_r17qu"]
 [ext_resource type="Texture2D" uid="uid://e0sa4vu442ku" path="res://assets/sprites/hitright.png" id="4_ycqqd"]
 [ext_resource type="Texture2D" uid="uid://cloa3lw7ph1lm" path="res://assets/sprites/ref.png" id="5_yyhxy"]
-[ext_resource type="Script" path="res://scenes/ref.gd" id="6_d1e7i"]
+[ext_resource type="Script" path="res://scripts/ref.gd" id="6_d1e7i"]
 [ext_resource type="PackedScene" uid="uid://eqkes2x4r2q7" path="res://scenes/tennis_ball.tscn" id="8_4sn7c"]
+[ext_resource type="Script" path="res://scenes/score.gd" id="14_u1u5l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pov7g"]
 size = Vector2(18.5, 96)
@@ -42,7 +44,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4sr7s"]
-size = Vector2(20, 10)
+size = Vector2(18, 18)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cvpok"]
 atlas = ExtResource("3_neq8m")
@@ -239,7 +241,9 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ydkl1"]
-size = Vector2(18.75, 31)
+size = Vector2(17, 33)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m5g3i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ywrw0"]
 atlas = ExtResource("5_yyhxy")
@@ -280,12 +284,28 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_syrvb"]
+size = Vector2(191, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ppyn5"]
+size = Vector2(259, 20)
+
 [node name="Game" type="Node2D"]
+
+[node name="Clamps" type="Node2D" parent="."]
+position = Vector2(0, -32)
+
+[node name="A" type="Node2D" parent="Clamps"]
+position = Vector2(-40, 0)
+
+[node name="B" type="Node2D" parent="Clamps"]
+position = Vector2(40, 0)
 
 [node name="Camera" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
 
 [node name="Boundaries" type="StaticBody2D" parent="."]
+script = ExtResource("1_ap15m")
 
 [node name="Left" type="CollisionShape2D" parent="Boundaries"]
 position = Vector2(-137.25, 48)
@@ -304,7 +324,7 @@ position = Vector2(0, -23)
 shape = SubResource("RectangleShape2D_be4wx")
 
 [node name="TennisBall" parent="." instance=ExtResource("8_4sn7c")]
-position = Vector2(-62, 49)
+position = Vector2(-18, 19)
 
 [node name="Court" type="Sprite2D" parent="."]
 z_index = -1
@@ -321,6 +341,7 @@ autoplay = "default"
 [node name="Area2D" type="Area2D" parent="Enemy"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Area2D"]
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_4sr7s")
 
 [node name="Player" type="CharacterBody2D" parent="."]
@@ -332,11 +353,16 @@ script = ExtResource("1_wsuso")
 sprite_frames = SubResource("SpriteFrames_k0iqw")
 animation = &"swingright"
 autoplay = "idleleft"
-frame = 5
-frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("RectangleShape2D_ydkl1")
+
+[node name="Area2D" type="Area2D" parent="Player"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D"]
+position = Vector2(0, -4.6875)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_m5g3i")
 
 [node name="Ref" type="AnimatedSprite2D" parent="."]
 position = Vector2(-92, -28)
@@ -345,4 +371,24 @@ animation = &"down"
 autoplay = "down"
 script = ExtResource("6_d1e7i")
 
+[node name="Scoreboxes" type="Node" parent="."]
+script = ExtResource("14_u1u5l")
+
+[node name="EnemyArea" type="Area2D" parent="Scoreboxes"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Scoreboxes/EnemyArea"]
+position = Vector2(0, -74)
+shape = SubResource("RectangleShape2D_syrvb")
+
+[node name="PlayerArea" type="Area2D" parent="Scoreboxes"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Scoreboxes/PlayerArea"]
+position = Vector2(0, 100)
+shape = SubResource("RectangleShape2D_ppyn5")
+
+[connection signal="area_entered" from="Enemy/Area2D" to="Enemy" method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Enemy/Area2D" to="Enemy" method="_on_area_2d_body_entered"]
 [connection signal="animation_finished" from="Player/AnimatedSprite2D" to="Player" method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="area_entered" from="Player/Area2D" to="Player" method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="Scoreboxes/EnemyArea" to="Scoreboxes" method="_on_enemy_area_area_entered"]
+[connection signal="area_entered" from="Scoreboxes/PlayerArea" to="Scoreboxes" method="_on_player_area_area_entered"]

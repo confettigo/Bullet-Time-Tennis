@@ -1,11 +1,14 @@
 [gd_scene load_steps=2 format=3 uid="uid://xx7lk8akkuo3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oxeii"]
-size = Vector2(8, 9)
+size = Vector2(10, 13.9444)
 
 [node name="RacketBox" type="Node2D"]
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 6.45)
+scale = Vector2(1, 1.8)
 shape = SubResource("RectangleShape2D_oxeii")
+debug_color = Color(2.40654e-06, 0.577017, 0.816245, 0.42)

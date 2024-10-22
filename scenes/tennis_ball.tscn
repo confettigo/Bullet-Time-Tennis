@@ -1,10 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://eqkes2x4r2q7"]
 
 [ext_resource type="Texture2D" uid="uid://fihinfgt1hj4" path="res://assets/sprites/ball.png" id="1_161k7"]
-[ext_resource type="Script" path="res://scenes/ball.gd" id="1_bp0xi"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_lpajo"]
-radius = 3.0
+[ext_resource type="Script" path="res://scripts/ball.gd" id="1_bp0xi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_762sy"]
 atlas = ExtResource("1_161k7")
@@ -45,20 +42,21 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="TennisBall" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_m3g5p"]
+radius = 3.0
 
-[node name="RigidBody2D" type="Area2D" parent="."]
+[node name="TennisBall" type="Node2D"]
 script = ExtResource("1_bp0xi")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-shape = SubResource("CircleShape2D_lpajo")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="RigidBody2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_c6fga")
-frame_progress = 0.634343
+animation = &"low"
+autoplay = "low"
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.25
 
-[connection signal="area_entered" from="RigidBody2D" to="RigidBody2D" method="_on_area_entered"]
-[connection signal="timeout" from="Timer" to="RigidBody2D" method="_on_timer_timeout"]
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_m3g5p")
