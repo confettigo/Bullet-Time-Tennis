@@ -4,6 +4,7 @@ extends CharacterBody2D
 var hitbox = load("res://scenes/racket_box.tscn")
 @onready var a: Node2D = $"../Clamps/A"
 @onready var b: Node2D = $"../Clamps/B"
+@onready var tt_meter: ProgressBar = $"../CanvasLayer/TTMeter"
 
 
 const SPEED = 80.0
@@ -43,6 +44,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
+	tt_meter.incrementHits()
 	tennis_ball.serving = false
 	isSwinging = true
 	sprite.play("swingleft")

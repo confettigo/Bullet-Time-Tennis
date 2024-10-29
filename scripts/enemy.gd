@@ -3,6 +3,8 @@ extends Node2D
 var direction = 0
 var speed = 120
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var tt_meter: ProgressBar = $"../CanvasLayer/TTMeter"
+
 var isSwinging = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -29,6 +31,7 @@ func _process(delta: float) -> void:
 		sprite.play("idle")
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
+	tt_meter.incrementHits()
 	var rng = RandomNumberGenerator.new()
 	isSwinging = true
 	sprite.play("hit")

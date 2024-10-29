@@ -4,6 +4,7 @@ var enemyscore = 0
 var scoretable = [0, 15, 30, 40]
 @onready var scoretext: RichTextLabel = $"../CanvasLayer/Label"
 @onready var tennis_ball: Node2D = $"../TennisBall"
+@onready var tt_meter: ProgressBar = $"../CanvasLayer/TTMeter"
 
 
 # Called when the node enters the scene tree for the first time.
@@ -15,6 +16,7 @@ func _process(delta: float) -> void:
 	pass
 
 func scoreupdater():
+	tt_meter.reset()
 	tennis_ball.reset()
 	if(playerscore >= 4 || enemyscore >=4):
 		playerscore = 0

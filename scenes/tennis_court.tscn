@@ -1,7 +1,8 @@
-[gd_scene load_steps=45 format=3 uid="uid://ch6aow6ds2p7u"]
+[gd_scene load_steps=46 format=3 uid="uid://ch6aow6ds2p7u"]
 
 [ext_resource type="Script" path="res://scripts/debug.gd" id="1_ap15m"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_wsuso"]
+[ext_resource type="Script" path="res://scripts/tt_meter.gd" id="2_23gem"]
 [ext_resource type="Texture2D" uid="uid://bar8nuywyfnus" path="res://assets/sprites/justcourt.png" id="3_c3oly"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="3_r17qu"]
 [ext_resource type="Texture2D" uid="uid://mtn13riidvbw" path="res://assets/sprites/enemyhit.png" id="5_fmxw4"]
@@ -259,6 +260,15 @@ theme_override_fonts/font = ExtResource("13_it78a")
 theme_override_font_sizes/font_size = 20
 text = "PRESS N FOR EASY AI, M FOR HARD"
 
+[node name="TTMeter" type="ProgressBar" parent="CanvasLayer"]
+offset_left = 18.0
+offset_top = 14.0
+offset_right = 354.0
+offset_bottom = 41.0
+value = 50.0
+show_percentage = false
+script = ExtResource("2_23gem")
+
 [node name="Clamps" type="Node2D" parent="."]
 position = Vector2(0, -32)
 
@@ -300,7 +310,7 @@ scale = Vector2(2, 2)
 texture = ExtResource("3_c3oly")
 
 [node name="Enemy" type="Node2D" parent="."]
-position = Vector2(0, -59)
+position = Vector2(-2, -68)
 script = ExtResource("3_r17qu")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemy"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://eqkes2x4r2q7"]
+[gd_scene load_steps=9 format=3 uid="uid://eqkes2x4r2q7"]
 
 [ext_resource type="Texture2D" uid="uid://fihinfgt1hj4" path="res://assets/sprites/ball.png" id="1_161k7"]
 [ext_resource type="Script" path="res://scripts/ball.gd" id="1_bp0xi"]
@@ -45,12 +45,18 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_m3g5p"]
 radius = 3.0
 
+[sub_resource type="Curve" id="Curve_eymrb"]
+_data = [Vector2(0.00526316, 0), 0.0, 0.0, 0, 0, Vector2(0.989474, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [node name="TennisBall" type="Node2D"]
 script = ExtResource("1_bp0xi")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 1
 sprite_frames = SubResource("SpriteFrames_c6fga")
-autoplay = "default"
+animation = &"low"
+autoplay = "low"
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.25
@@ -59,3 +65,9 @@ wait_time = 0.25
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_m3g5p")
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 3.0
+width_curve = SubResource("Curve_eymrb")
+begin_cap_mode = 1
+end_cap_mode = 1
