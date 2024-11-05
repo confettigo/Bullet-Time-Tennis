@@ -2,6 +2,11 @@
 * Lucie Hostiuk
 * [Trello](https://trello.com/b/aZbarvJm/bullet-time-tennis)
 * [Proposal](proposal.pdf)
+### 2024-11-4 - 3 Hours
+* Added mechanic
+* Added sound effects and music
+* Added title screen
+* Added advanced scoring (sets)
 ### 2024-10-22 - 4 hours
 * Complete graphical overhaul
 * Added scoring UI

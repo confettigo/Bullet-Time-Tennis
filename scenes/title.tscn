@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://drfdq1myty2jk"]
+
+[ext_resource type="Script" path="res://scripts/title.gd" id="1_ajmgb"]
+[ext_resource type="Texture2D" uid="uid://cxplln8yy6urm" path="res://assets/sprites/background.png" id="1_u2r2h"]
+[ext_resource type="Texture2D" uid="uid://l3c5uw4556mm" path="res://assets/sprites/highreslogo.png" id="2_athjx"]
+[ext_resource type="FontFile" uid="uid://c46t5xebp6ewl" path="res://assets/fonts/AtariClassic-gry3.ttf" id="3_2vuen"]
+
+[node name="Title" type="Node2D"]
+script = ExtResource("1_ajmgb")
+
+[node name="TitleScreen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1156.0
+offset_bottom = 649.0
+
+[node name="TextureRect" type="TextureRect" parent="TitleScreen"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("1_u2r2h")
+
+[node name="TextureRect2" type="TextureRect" parent="TitleScreen"]
+layout_mode = 0
+offset_left = 447.0
+offset_top = 80.0
+offset_right = 706.0
+offset_bottom = 339.0
+texture = ExtResource("2_athjx")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="TitleScreen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 263.0
+offset_top = 490.0
+offset_right = -253.0
+offset_bottom = -96.0
+theme_override_fonts/font = ExtResource("3_2vuen")
+theme_override_font_sizes/font_size = 40
+text = "PRESS N TO START"

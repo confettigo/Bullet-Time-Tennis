@@ -5,6 +5,7 @@ var hitbox = load("res://scenes/racket_box.tscn")
 @onready var a: Node2D = $"../Clamps/A"
 @onready var b: Node2D = $"../Clamps/B"
 @onready var tt_meter: ProgressBar = $"../CanvasLayer/TTMeter"
+@onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 
 const SPEED = 80.0
@@ -47,6 +48,7 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	tt_meter.incrementHits()
 	tennis_ball.serving = false
 	isSwinging = true
+	audio.play()
 	sprite.play("swingleft")
 	var balldirection = -Vector2(tennis_ball.position - position)
 	var player_a = -Vector2(a.global_position - position)

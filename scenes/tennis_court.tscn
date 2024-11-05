@@ -1,6 +1,7 @@
-[gd_scene load_steps=46 format=3 uid="uid://ch6aow6ds2p7u"]
+[gd_scene load_steps=51 format=3 uid="uid://ch6aow6ds2p7u"]
 
 [ext_resource type="Script" path="res://scripts/debug.gd" id="1_ap15m"]
+[ext_resource type="Script" path="res://scripts/title.gd" id="1_pdfrn"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_wsuso"]
 [ext_resource type="Script" path="res://scripts/tt_meter.gd" id="2_23gem"]
 [ext_resource type="Texture2D" uid="uid://bar8nuywyfnus" path="res://assets/sprites/justcourt.png" id="3_c3oly"]
@@ -12,8 +13,12 @@
 [ext_resource type="PackedScene" uid="uid://eqkes2x4r2q7" path="res://scenes/tennis_ball.tscn" id="8_4sn7c"]
 [ext_resource type="Texture2D" uid="uid://dion57j7qamlg" path="res://assets/sprites/swing.png" id="8_iu3tl"]
 [ext_resource type="Texture2D" uid="uid://cyxwlohwrt8d" path="res://assets/sprites/leftwalk(1).png" id="12_l75nv"]
+[ext_resource type="AudioStream" uid="uid://cvg43ydvwmxxo" path="res://assets/sound/hit2.wav" id="12_wp26s"]
 [ext_resource type="FontFile" uid="uid://c46t5xebp6ewl" path="res://assets/fonts/AtariClassic-gry3.ttf" id="13_it78a"]
 [ext_resource type="Script" path="res://scripts/score.gd" id="14_u1u5l"]
+[ext_resource type="AudioStream" uid="uid://cpsgd21d6rusv" path="res://assets/sound/hit.wav" id="15_saiw1"]
+[ext_resource type="Texture2D" uid="uid://cxplln8yy6urm" path="res://assets/sprites/background.png" id="15_y3ky7"]
+[ext_resource type="Texture2D" uid="uid://l3c5uw4556mm" path="res://assets/sprites/highreslogo.png" id="16_jhrm5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pov7g"]
 size = Vector2(18.5, 96)
@@ -237,30 +242,71 @@ size = Vector2(318, 20)
 size = Vector2(315, 20)
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_pdfrn")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="TitleScreen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -160.0
+offset_top = -89.0
+offset_right = 996.0
+offset_bottom = 560.0
+scale = Vector2(0.277236, 0.274146)
+
+[node name="TextureRect" type="TextureRect" parent="TitleScreen"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("15_y3ky7")
+
+[node name="TextureRect2" type="TextureRect" parent="TitleScreen"]
+layout_mode = 0
+offset_left = 447.0
+offset_top = 80.0
+offset_right = 706.0
+offset_bottom = 339.0
+texture = ExtResource("16_jhrm5")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="TitleScreen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 263.0
+offset_top = 490.0
+offset_right = -253.0
+offset_bottom = -96.0
+theme_override_fonts/font = ExtResource("13_it78a")
+theme_override_font_sizes/font_size = 40
+text = "PRESS N TO START"
+
+[node name="GameScreen" type="Node2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="GameScreen"]
 layer = 2
 
-[node name="Label" type="RichTextLabel" parent="CanvasLayer"]
-offset_left = 96.0
-offset_top = 60.0
-offset_right = 816.0
-offset_bottom = 151.0
+[node name="Label" type="RichTextLabel" parent="GameScreen/CanvasLayer"]
+offset_left = 366.0
+offset_top = 8.0
+offset_right = 1086.0
+offset_bottom = 99.0
 theme_override_fonts/normal_font = ExtResource("13_it78a")
 theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
 text = "15 - 40"
 
-[node name="Label2" type="Label" parent="CanvasLayer"]
-offset_left = 10.0
-offset_top = 615.0
-offset_right = 1146.0
-offset_bottom = 638.0
-theme_override_fonts/font = ExtResource("13_it78a")
-theme_override_font_sizes/font_size = 20
-text = "PRESS N FOR EASY AI, M FOR HARD"
+[node name="Sets" type="RichTextLabel" parent="GameScreen/CanvasLayer"]
+offset_left = 669.0
+offset_top = 9.0
+offset_right = 1389.0
+offset_bottom = 100.0
+theme_override_fonts/normal_font = ExtResource("13_it78a")
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "1 - 0"
 
-[node name="TTMeter" type="ProgressBar" parent="CanvasLayer"]
+[node name="TTMeter" type="ProgressBar" parent="GameScreen/CanvasLayer"]
 offset_left = 18.0
 offset_top = 14.0
 offset_right = 354.0
@@ -269,82 +315,88 @@ value = 50.0
 show_percentage = false
 script = ExtResource("2_23gem")
 
-[node name="Clamps" type="Node2D" parent="."]
+[node name="Clamps" type="Node2D" parent="GameScreen"]
 position = Vector2(0, -32)
 
-[node name="A" type="Node2D" parent="Clamps"]
+[node name="A" type="Node2D" parent="GameScreen/Clamps"]
 position = Vector2(-20, 0)
 
-[node name="B" type="Node2D" parent="Clamps"]
+[node name="B" type="Node2D" parent="GameScreen/Clamps"]
 position = Vector2(19, 0)
 
-[node name="Camera" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="GameScreen"]
 zoom = Vector2(3, 3)
 
-[node name="Boundaries" type="StaticBody2D" parent="."]
+[node name="Boundaries" type="StaticBody2D" parent="GameScreen"]
 script = ExtResource("1_ap15m")
 
-[node name="Left" type="CollisionShape2D" parent="Boundaries"]
+[node name="Left" type="CollisionShape2D" parent="GameScreen/Boundaries"]
 position = Vector2(-169, 47)
 shape = SubResource("RectangleShape2D_pov7g")
 
-[node name="Right" type="CollisionShape2D" parent="Boundaries"]
+[node name="Right" type="CollisionShape2D" parent="GameScreen/Boundaries"]
 position = Vector2(169, 48)
 shape = SubResource("RectangleShape2D_pov7g")
 
-[node name="Bottom" type="CollisionShape2D" parent="Boundaries"]
+[node name="Bottom" type="CollisionShape2D" parent="GameScreen/Boundaries"]
 position = Vector2(0, 101)
 shape = SubResource("RectangleShape2D_be4wx")
 
-[node name="Top" type="CollisionShape2D" parent="Boundaries"]
+[node name="Top" type="CollisionShape2D" parent="GameScreen/Boundaries"]
 position = Vector2(0, -23)
 shape = SubResource("RectangleShape2D_be4wx")
 
-[node name="TennisBall" parent="." instance=ExtResource("8_4sn7c")]
+[node name="TennisBall" parent="GameScreen" instance=ExtResource("8_4sn7c")]
 position = Vector2(63, 61)
 
-[node name="Court" type="Sprite2D" parent="."]
+[node name="Court" type="Sprite2D" parent="GameScreen"]
 z_index = -1
 position = Vector2(1.52588e-05, -5.72205e-06)
 scale = Vector2(2, 2)
 texture = ExtResource("3_c3oly")
 
-[node name="Enemy" type="Node2D" parent="."]
+[node name="Enemy" type="Node2D" parent="GameScreen"]
 position = Vector2(-2, -68)
 script = ExtResource("3_r17qu")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemy"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameScreen/Enemy"]
 sprite_frames = SubResource("SpriteFrames_ydvag")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="Area2D" type="Area2D" parent="Enemy"]
+[node name="Area2D" type="Area2D" parent="GameScreen/Enemy"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameScreen/Enemy/Area2D"]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_4sr7s")
 
-[node name="Player" type="CharacterBody2D" parent="."]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="GameScreen/Enemy"]
+stream = ExtResource("12_wp26s")
+
+[node name="Player" type="CharacterBody2D" parent="GameScreen"]
 z_index = 1
 position = Vector2(0, 70)
 script = ExtResource("1_wsuso")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameScreen/Player"]
 sprite_frames = SubResource("SpriteFrames_k0iqw")
 animation = &"swingleft"
 autoplay = "idleleft"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameScreen/Player"]
 shape = SubResource("RectangleShape2D_ydkl1")
 
-[node name="Area2D" type="Area2D" parent="Player"]
+[node name="Area2D" type="Area2D" parent="GameScreen/Player"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameScreen/Player/Area2D"]
 position = Vector2(0, 1.3125)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_m5g3i")
 
-[node name="Ref" type="AnimatedSprite2D" parent="."]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="GameScreen/Player"]
+stream = ExtResource("15_saiw1")
+
+[node name="Ref" type="AnimatedSprite2D" parent="GameScreen"]
 position = Vector2(-124, -24)
 scale = Vector2(1.6, 1.6)
 sprite_frames = SubResource("SpriteFrames_1mp2y")
@@ -352,25 +404,30 @@ animation = &"down"
 autoplay = "down"
 script = ExtResource("6_d1e7i")
 
-[node name="Scoreboxes" type="Node" parent="."]
+[node name="Scoreboxes" type="Node" parent="GameScreen"]
 script = ExtResource("14_u1u5l")
 
-[node name="EnemyArea" type="Area2D" parent="Scoreboxes"]
+[node name="EnemyArea" type="Area2D" parent="GameScreen/Scoreboxes"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Scoreboxes/EnemyArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameScreen/Scoreboxes/EnemyArea"]
 position = Vector2(0, -92)
 shape = SubResource("RectangleShape2D_syrvb")
 
-[node name="PlayerArea" type="Area2D" parent="Scoreboxes"]
+[node name="PlayerArea" type="Area2D" parent="GameScreen/Scoreboxes"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Scoreboxes/PlayerArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameScreen/Scoreboxes/PlayerArea"]
 position = Vector2(1.5, 96)
 shape = SubResource("RectangleShape2D_ppyn5")
 
-[connection signal="animation_finished" from="Enemy/AnimatedSprite2D" to="Enemy" method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="area_entered" from="Enemy/Area2D" to="Enemy" method="_on_area_2d_area_entered"]
-[connection signal="body_entered" from="Enemy/Area2D" to="Enemy" method="_on_area_2d_body_entered"]
-[connection signal="animation_finished" from="Player/AnimatedSprite2D" to="Player" method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="area_entered" from="Player/Area2D" to="Player" method="_on_area_2d_area_entered"]
-[connection signal="area_entered" from="Scoreboxes/EnemyArea" to="Scoreboxes" method="_on_enemy_area_area_entered"]
-[connection signal="area_entered" from="Scoreboxes/PlayerArea" to="Scoreboxes" method="_on_player_area_area_entered"]
+[node name="ScoreSFX" type="AudioStreamPlayer2D" parent="GameScreen"]
+
+[node name="TimeSFX" type="AudioStreamPlayer2D" parent="GameScreen"]
+
+[connection signal="animation_finished" from="GameScreen/Enemy/AnimatedSprite2D" to="GameScreen/Enemy" method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="area_entered" from="GameScreen/Enemy/Area2D" to="GameScreen/Enemy" method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="GameScreen/Enemy/Area2D" to="GameScreen/Enemy" method="_on_area_2d_body_entered"]
+[connection signal="animation_finished" from="GameScreen/Player/AnimatedSprite2D" to="GameScreen/Player" method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="area_entered" from="GameScreen/Player/Area2D" to="GameScreen/Player" method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="GameScreen/Scoreboxes/EnemyArea" to="GameScreen/Scoreboxes" method="_on_enemy_area_area_entered"]
+[connection signal="area_entered" from="GameScreen/Scoreboxes/PlayerArea" to="GameScreen/Scoreboxes" method="_on_player_area_area_entered"]
+[connection signal="finished" from="GameScreen/ScoreSFX" to="GameScreen/Scoreboxes" method="_on_score_sfx_finished"]
