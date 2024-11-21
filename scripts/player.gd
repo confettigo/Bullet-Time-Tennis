@@ -4,8 +4,10 @@ extends CharacterBody2D
 var hitbox = load("res://scenes/racket_box.tscn")
 @onready var a: Node2D = $"../Clamps/A"
 @onready var b: Node2D = $"../Clamps/B"
-@onready var tt_meter: ProgressBar = $"../CanvasLayer/TTMeter"
+@onready var tt_meter: TextureProgressBar = $"../CanvasLayer/TTMeter"
 @onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var path_2d: Path2D = $"../Path2D"
+@onready var enemy: Node2D = $"../Enemy"
 
 
 const SPEED = 80.0
@@ -50,6 +52,7 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	isSwinging = true
 	audio.play()
 	sprite.play("swingleft")
+	
 	var balldirection = -Vector2(tennis_ball.position - position)
 	var player_a = -Vector2(a.global_position - position)
 	var player_b = -Vector2(b.global_position - position)
@@ -61,10 +64,17 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		balldirection = player_b
 	elif(angle_ball > -PI/2 && angle_ball < angle_a):
 		balldirection = player_a
-	balldirection = balldirection.normalized()
-	queue_redraw()
-	tennis_ball.hdirection = -balldirection.x
-	tennis_ball.vdirection = balldirection.y
+	
+	
+	var stoppoint = Geometry2D.line_intersects_line(tennis_ball.position,Vector2(-balldirection.x,-balldirection.y),Vector2(enemy.position.x - 100, enemy.position.y), Vector2.RIGHT) 
+	path_2d.curve.set_point_position(0, tennis_ball.position)
+	path_2d.curve.set_point_out(0,Vector2(-balldirection.x,-balldirection.y*1.8))
+	path_2d.curve.set_point_position(1, stoppoint)
+	tennis_ball.ispathing = true
+	#path_2d.curve.set_point_in(1,Vector2(1,1) * multiplier)
+	#balldirection = balldirection.normalized()
+	#tennis_ball.hdirection = -balldirection.x
+	#tennis_ball.vdirection = balldirection.y
 
 
 func _on_animated_sprite_2d_animation_finished() -> void:

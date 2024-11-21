@@ -1,10 +1,15 @@
 extends Node2D
-var speed = 200
+var normal = 200
+var slow = normal / 2
+var current = normal
 var hdirection = 0
 var vdirection = 0;
 var resetposition;
 var serving = true
+var pathtimer = 0
+var ispathing = false
 #@onready var line_2d: Line2D = $Line2D
+@onready var path_2d: Path2D = $"../Path2D"
 
 
 # -1 = left, 0, center, 1 = right
@@ -33,6 +38,16 @@ func _process(delta: float) -> void:
 	#while line_2d.get_point_count()>length:
 		#line_2d.remove_point(0)
 	
-	position.x += hdirection * speed * delta
-	position.y -= vdirection * speed * delta
+	#position.x += hdirection * current * delta
+	#position.y -= vdirection * current * delta
+	
+	if(!ispathing):
+		return
+	pathtimer += delta * 0.75
+	if(pathtimer >= 1):
+		pathtimer = 1
+		ispathing = false
+	
+	position = path_2d.curve.sample(0,pathtimer)
+	
 	pass

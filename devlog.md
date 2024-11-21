@@ -2,6 +2,11 @@
 * Lucie Hostiuk
 * [Trello](https://trello.com/b/aZbarvJm/bullet-time-tennis)
 * [Proposal](proposal.pdf)
+### 2024-11-20 - 4 Hours
+* Improved UI (Layout & Time Meter texture)
+* Made time meter stop draining upon scoring
+* Developed system to calculate realistic ball trajectory
+* Implemented aforementioned system on hits from player
 ### 2024-11-4 - 3 Hours
 * Added mechanic
 * Added sound effects and music

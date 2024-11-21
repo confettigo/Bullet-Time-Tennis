@@ -1,9 +1,11 @@
 extends Node2D
 @onready var tennis_ball: Node2D = $"../TennisBall"
 var direction = 0
-var speed = 120
+var normal = 120
+var slow = normal / 2
+var current = normal
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var tt_meter: ProgressBar = $"../CanvasLayer/TTMeter"
+@onready var tt_meter: TextureProgressBar = $"../CanvasLayer/TTMeter"
 @onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 var isSwinging = false
@@ -27,7 +29,7 @@ func _process(delta: float) -> void:
 	if(abs(position.x - tennis_ball.position.x) >= 0.75):
 		
 		sprite.play("walking")
-		position.x -= direction * delta * speed;
+		position.x -= direction * delta * current;
 	else:
 		sprite.play("idle")
 

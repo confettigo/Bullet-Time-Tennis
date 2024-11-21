@@ -7,7 +7,7 @@ var gameover = false
 var scoretable = [0, 15, 30, 40]
 @onready var scoretext: RichTextLabel = $"../CanvasLayer/Label"
 @onready var tennis_ball: Node2D = $"../TennisBall"
-@onready var tt_meter: ProgressBar = $"../CanvasLayer/TTMeter"
+@onready var tt_meter: TextureProgressBar = $"../CanvasLayer/TTMeter"
 @onready var sets: RichTextLabel = $"../CanvasLayer/Sets"
 @onready var game: Node2D = $"../.."
 @onready var score_sfx: AudioStreamPlayer2D = $"../ScoreSFX"
@@ -32,8 +32,7 @@ func scoreupdater():
 		playerscore = 0
 		enemyscore = 0
 		enemysets += 1
-	scoretext.text = ("[color=#ffea3a]" + str(scoretable[playerscore]) + "[/color] - [color=#5affd4]" + str(scoretable[enemyscore]) + "[/color]")
-	sets.text = ("[color=#ffea3a]" + str(playersets) + "[/color] - [color=#5affd4]" + str(enemysets) + "[/color]")
+	updatetext()
 	if(enemysets >= 2):
 		score_sfx.stream = load("res://assets/sound/gameover.wav")
 		score_sfx.play()
@@ -51,14 +50,16 @@ func reset():
 	tt_meter.value = 0
 	enemysets = 0
 	playersets = 0
-	sets.text = ("[color=#ffea3a]" + str(playersets) + "[/color] - [color=#5affd4]" + str(enemysets) + "[/color]")
-
+	updatetext()
 func _on_player_area_area_entered(area: Area2D) -> void:
 	score_sfx.stream = load("res://assets/sound/enemyscore.wav")
 	score_sfx.play()
 	enemyscore +=1
 	scoreupdater()
 
+func updatetext():
+	scoretext.text = ("SCORE " + "[color=#ffea3a]" + str(scoretable[playerscore]) + "[/color] - [color=#5affd4]" + str(scoretable[enemyscore]) + "[/color]")
+	sets.text = ("[right]" + "[color=#ffea3a]" + str(playersets) + "[/color] - [color=#5affd4]" + str(enemysets) + "[/color]" + " SETS" + "[/right]")
 
 func _on_score_sfx_finished() -> void:
 	if(gameover):
