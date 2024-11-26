@@ -15,9 +15,9 @@ extends StaticBody2D
 	#elif(event.is_action_pressed("hit")):
 		#enemy.speed = 80
 
-func _process(delta: float) -> void:
-	queue_redraw()
-
-func _draw():
-	draw_line(a.global_position, player.global_position, Color.CRIMSON, 2)
-	draw_line(b.global_position, player.global_position, Color.CRIMSON, 2)
+#func _process(delta: float) -> void:
+	#queue_redraw()
+#
+#func _draw():
+	#draw_line(a.global_position, player.global_position, Color.CRIMSON, 2)
+	#draw_line(b.global_position, player.global_position, Color.CRIMSON, 2)

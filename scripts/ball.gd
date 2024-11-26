@@ -38,16 +38,16 @@ func _process(delta: float) -> void:
 	#while line_2d.get_point_count()>length:
 		#line_2d.remove_point(0)
 	
-	#position.x += hdirection * current * delta
-	#position.y -= vdirection * current * delta
+	position.x += hdirection * current * delta
+	position.y -= vdirection * current * delta
 	
-	if(!ispathing):
-		return
-	pathtimer += delta * 0.75
-	if(pathtimer >= 1):
-		pathtimer = 1
-		ispathing = false
-	
-	position = path_2d.curve.sample(0,pathtimer)
+	#if(!ispathing):
+		#return
+	#pathtimer += delta * 0.75
+	#if(pathtimer >= 1):
+		#pathtimer = 1
+		#ispathing = false
+	#
+	#position = path_2d.curve.sample(0,pathtimer)
 	
 	pass
