@@ -66,15 +66,15 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		balldirection = player_a
 	
 	
-	var stoppoint = Geometry2D.line_intersects_line(tennis_ball.position,Vector2(-balldirection.x,-balldirection.y),Vector2(enemy.position.x - 100, enemy.position.y), Vector2.RIGHT) 
-	path_2d.curve.set_point_position(0, tennis_ball.position)
-	path_2d.curve.set_point_out(0,Vector2(-balldirection.x,-balldirection.y*1.8))
-	path_2d.curve.set_point_position(1, stoppoint)
-	tennis_ball.ispathing = true
+	#var stoppoint = Geometry2D.line_intersects_line(tennis_ball.position,Vector2(-balldirection.x,-balldirection.y),Vector2(enemy.position.x - 100, enemy.position.y), Vector2.RIGHT) 
+	#path_2d.curve.set_point_position(0, tennis_ball.position)
+	#path_2d.curve.set_point_out(0,Vector2(-balldirection.x,-balldirection.y*1.8))
+	#path_2d.curve.set_point_position(1, stoppoint)
+	#tennis_ball.ispathing = true
 	#path_2d.curve.set_point_in(1,Vector2(1,1) * multiplier)
-	#balldirection = balldirection.normalized()
-	#tennis_ball.hdirection = -balldirection.x
-	#tennis_ball.vdirection = balldirection.y
+	balldirection = balldirection.normalized()
+	tennis_ball.hdirection = -balldirection.x
+	tennis_ball.vdirection = balldirection.y
 
 
 func _on_animated_sprite_2d_animation_finished() -> void:
