@@ -14,6 +14,7 @@ const SPEED = 80.0
 var lastdirection = -1
 var isIdle = false
 var isSwinging = false
+var isFrozen = false
 
 #func _process(delta: float) -> void:
 	#queue_redraw()
@@ -23,6 +24,8 @@ var isSwinging = false
 	#draw_line(b.global_position, global_position, Color.CRIMSON, 2)
 
 func _physics_process(delta: float) -> void:
+	if(isFrozen):
+		return
 	var hdirection := Input.get_axis("moveleft", "moveright")
 	var vdirection := Input.get_axis("movedown","moveup")
 	velocity.x = hdirection * SPEED
@@ -47,6 +50,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
+	if(isFrozen):
+		return
 	tt_meter.incrementHits()
 	tennis_ball.serving = false
 	isSwinging = true
@@ -76,7 +81,9 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	tennis_ball.hdirection = -balldirection.x
 	tennis_ball.vdirection = balldirection.y
 
-
+func freeze():
+	sprite.play("idleleft")
+	isFrozen = true
 func _on_animated_sprite_2d_animation_finished() -> void:
 	sprite.play("idleleft")
 	isSwinging = false

@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bar8nuywyfnus" path="res://assets/sprites/justcourt.png" id="3_c3oly"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="3_r17qu"]
 [ext_resource type="Texture2D" uid="uid://mtn13riidvbw" path="res://assets/sprites/enemyhit.png" id="5_fmxw4"]
-[ext_resource type="Texture2D" uid="uid://dayvekyib3lxj" path="res://assets/sprites/enemywalk.png" id="5_xvryj"]
+[ext_resource type="Texture2D" uid="uid://bqum6mmll3ywi" path="res://assets/sprites/enemywalk.png" id="5_xvryj"]
 [ext_resource type="Texture2D" uid="uid://cloa3lw7ph1lm" path="res://assets/sprites/ref.png" id="5_yyhxy"]
 [ext_resource type="Script" path="res://scripts/ref.gd" id="6_d1e7i"]
 [ext_resource type="Texture2D" uid="uid://b3ki8ojmswnme" path="res://assets/sprites/bar.png" id="6_mauvb"]
@@ -327,6 +327,16 @@ tint_under = Color(0.389287, 0.389287, 0.389287, 1)
 tint_progress = Color(0.873298, 0.873298, 0.873298, 1)
 script = ExtResource("2_23gem")
 
+[node name="Score" type="RichTextLabel" parent="GameScreen/CanvasLayer"]
+offset_left = 16.0
+offset_top = 7.0
+offset_right = 258.0
+offset_bottom = 98.0
+theme_override_fonts/normal_font = ExtResource("13_it78a")
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "55000"
+
 [node name="Clamps" type="Node2D" parent="GameScreen"]
 position = Vector2(0, -32)
 
@@ -384,6 +394,7 @@ shape = SubResource("RectangleShape2D_4sr7s")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="GameScreen/Enemy"]
 stream = ExtResource("12_wp26s")
+volume_db = 10.0
 
 [node name="Player" type="CharacterBody2D" parent="GameScreen"]
 z_index = 1
@@ -407,6 +418,7 @@ shape = SubResource("CapsuleShape2D_m5g3i")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="GameScreen/Player"]
 stream = ExtResource("15_saiw1")
+volume_db = 10.0
 
 [node name="Ref" type="AnimatedSprite2D" parent="GameScreen"]
 position = Vector2(-124, -24)
@@ -432,8 +444,10 @@ position = Vector2(1.5, 96)
 shape = SubResource("RectangleShape2D_ppyn5")
 
 [node name="ScoreSFX" type="AudioStreamPlayer2D" parent="GameScreen"]
+volume_db = 10.0
 
 [node name="TimeSFX" type="AudioStreamPlayer2D" parent="GameScreen"]
+volume_db = 10.0
 
 [node name="Path2D" type="Path2D" parent="GameScreen"]
 curve = SubResource("Curve2D_nm7pq")

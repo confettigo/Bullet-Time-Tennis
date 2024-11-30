@@ -7,6 +7,7 @@ var increments = 20
 var isSlow = false
 @onready var time_sfx: AudioStreamPlayer2D = $"../../TimeSFX"
 var time_value = 0
+@onready var score: Node = $"../../Scoreboxes"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -28,6 +29,7 @@ func incrementHits():
 	hits += 1
 	if(hits % 2 > 0 && hits >=2 && time_value < 100):
 		time_value += increments
+		score.updateuserscore(10)
 		if(time_value > 100):
 			time_value = 100
 		tt_meter.value = time_value
@@ -43,7 +45,6 @@ func timeresume():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if(isSlow):
-		print(tt_meter.value)
 		time_value -= 20 * delta
 		tt_meter.value = time_value
 		if(time_value <= 0):
