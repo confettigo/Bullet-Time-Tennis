@@ -46,8 +46,7 @@ func scoreupdater():
 		gameover = true
 		player.freeze()
 	elif(playersets >= 2):
-		score_sfx.stream = (load("res://assets/sound/gameover.wav"))
-		#CHANGE SOUND EFFECT
+		score_sfx.stream = (load("res://assets/sound/wintheme.wav"))
 		updateuserscore(1000)
 		score_sfx.play()
 		player.freeze()
