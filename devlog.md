@@ -2,6 +2,11 @@
 * Lucie Hostiuk
 * [Trello](https://trello.com/b/aZbarvJm/bullet-time-tennis)
 * [Proposal](proposal.pdf)
+### 2024-12-3 - 4 Hours (total over Thanksgiving break)
+* Added different enemies that scale as the player wins
+* Removed ball physics for time concerns
+* Added new jingle for winning a round (and the capability to win a round)
+* Added an overall score for the game, with a high score saved on the title screen
 ### 2024-11-20 - 4 Hours
 * Improved UI (Layout & Time Meter texture)
 * Made time meter stop draining upon scoring

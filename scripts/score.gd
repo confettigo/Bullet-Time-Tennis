@@ -6,6 +6,7 @@ var playersets = 0
 var enemysets = 0
 var gameover = false
 var win = false
+var hiscore = 0
 var scoretable = [0, 15, 30, 40]
 @onready var scoretext: RichTextLabel = $"../CanvasLayer/Label"
 @onready var tennis_ball: Node2D = $"../TennisBall"
@@ -16,6 +17,7 @@ var scoretable = [0, 15, 30, 40]
 @onready var player: CharacterBody2D = $"../Player"
 @onready var enemy: Node2D = $"../Enemy"
 @onready var userscoretext: RichTextLabel = $"../CanvasLayer/Score"
+@onready var hiscoretext: Label = $"../../TitleScreen/Label2"
 
 
 # Called when the node enters the scene tree for the first time.
@@ -44,6 +46,9 @@ func scoreupdater():
 		score_sfx.stream = load("res://assets/sound/gameover.wav")
 		score_sfx.play()
 		gameover = true
+		if(userscore > hiscore):
+			hiscore = userscore
+		hiscoretext.text = "HIGH SCORE: " + str(hiscore)
 		player.freeze()
 	elif(playersets >= 2):
 		score_sfx.stream = (load("res://assets/sound/wintheme.wav"))
